@@ -6,14 +6,16 @@ function setup() {
     stroke(255, 0, 0);
     //transperant fill
     fill(0, 0, 0, 0);
-    // set stroke weight to 3 pixels
-    strokeWeight(3);
-    socket = new WebSocket('ws://localhost:8080/esp');
+    // set stroke weight
+    strokeWeight(2);
+    //set frameRate
+    frameRate(240);
+    socket = new WebSocket('ws://localhost:8081/esp');
     socket.onmessage= function(e) {
         clear();
-        var rectangles = JSON.parse(e.data);
-        rectangles.forEach(function(rectangle) {
-            rect(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        var lines = JSON.parse(e.data);
+        lines.forEach(function(l) {
+            line(l.X1, l.Y1, l.X2, l.Y2);
         });
     };
 }
